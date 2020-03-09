@@ -1,0 +1,56 @@
+Goal: 
+
+Goal of this exercise is to get familiar with simple techniques to extract features and classify data from phone accelerometer. 
+We will classify data from accelerometer into stationary and walking. 
+Also, we will go into more complex movements like running or taking stairs later.
+
+Needed software: Python3
+
+Needed python libraries: numpy and sklearn (We recommend installing Anaconda, which includes most of the python libraries).
+
+Data: 
+
+We have provided  data in "accelerometer_movement.csv" file with this exercise. 
+
+The python script will load the csv file and generate a two-dimensional matrix, where each row contains 4 data points. 
+The first 3 data points represent acceleration values along 3-dimension. 
+The last data point in every row (4th column) contains either 0 or 1 values, where 0 represents stationary conditions and 1 represents walking.
+
+Features extractions: In stationary conditions, there would be less variation and smaller acceleration values compared to walking conditions. 
+
+In this exercise, we aim to continuously track these two physical activity conditions (i.e. stationary or walking). 
+
+To this end, we should select an appropriately sized moving window along the time dimension (i.e. along the rows). 
+The length of the window should be large enough to capture enough movement information. 
+
+At the same time the window length should be small enough to detect the changes between the two conditions. 
+In this exercise we select a window length of 128 (i.e. 128 rows). Within these windows we need to extract suitable measurements that will best 
+describe the level and variation in acceleration values. To do this we will compute mean and variance for every 128 accelerometer data instances 
+(i.e., for every 128 rows, you should get 3 mean and 3 variance values for the 3-axes of accelerometer data). 
+
+In other words, we should get one 6 dimensional feature vector for each 128 data points.
+
+Label extraction: 
+
+For "accelerometer_movement.csv", the last column represents walking or stationary for corresponding 3-axis accelerometer data 
+("0" represents stationary and "1" represents walking). Since for every 128 3-axis accelerometer sample we compute one feature vector, 
+we need to a single label (walking or stationary) for every 128 accelerometer data samples. 
+
+This may potentially lead to some window containing both 0s and 1s. To handle these mixed windows, we suggest to take the majority label as the label for the whole window. 
+For example, if one particular window contains 60 0s and 68 1s, then the whole window has a label of 1.
+
+Classification and Labels: 
+
+Since variations (variance) and absolute values (mean) are significantly different for stationary and walking data, simple classifiers can be used to discriminate 
+between walking and stationary conditions. In this exercise, we will use a simple classifier called "Naive Bayes".
+
+Deliverable: 
+
+You have to complete the extract_features_and_labels and classification_accuracy function in the movement_classification.py in order to perform movement classification. 
+
+In extract_features_and_labels, you have to compute the features and corresponding labels. 
+In classification_accuracy, you have to classify the movements using Naive Bayes (hint: python scikit-learn library might be useful). 
+
+If you have done all the steps correctly, the output of the prediction accuracy (10-fold cross validation) should be around 97-99%.
+
+
